@@ -1,0 +1,27 @@
+server {
+    listen 80;
+    server_name _;
+    root /var/www;
+    client_max_body_size 20M;
+
+    # Output error logs to stdout
+    error_log /proc/self/fd/2 warn;
+    
+    location / {
+        index index.html index.htm;
+    }
+    # Deny all . files
+    location ~ /\. {
+        deny all;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
+
