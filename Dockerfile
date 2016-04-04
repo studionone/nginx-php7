@@ -17,7 +17,9 @@ RUN apt-get update && \
     php7.0-cli \
     php7.0-fpm \
     php7.0-gd \
-    php7.0-json
+    php7.0-json \
+    php7.0-zip \
+    wget
 
 RUN service php7.0-fpm stop && \
     service nginx stop && \
@@ -36,6 +38,9 @@ ENV TERM xterm-256color
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i 's/sendfile on/sendfile off/' /etc/nginx/nginx.conf
 RUN sed -i 's/user www-data/user root root/' /etc/nginx/nginx.conf
+
+# Install Composer
+RUN wget -O /tmp/composer.phar https://getcomposer.org/composer.phar && cp /tmp/composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
 #add default page for testing nginx
 ADD var/www /var/www
