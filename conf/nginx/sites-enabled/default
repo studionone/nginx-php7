@@ -8,7 +8,7 @@ server {
     error_log /proc/self/fd/2 warn;
     
     location / {
-        index index.html index.htm;
+        index index.html index.htm index.php;
     }
     # Deny all . files
     location ~ /\. {
