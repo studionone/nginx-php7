@@ -1,33 +1,46 @@
-FROM ubuntu:14.04.1
+FROM ubuntu:16.10
 
 MAINTAINER Greg Beaven <greg@studionone.com.au>
 
 # Install PHP7
-RUN apt-get install -y language-pack-en-base && \
-    export LC_ALL=en_US.UTF-8 && \
-    export LANG=en_US.UTF-8 && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:ondrej/php
-
 RUN apt-get update && \
     apt-get upgrade -y && \
+    apt-get install -y language-pack-en-base && \
+    export LC_ALL=en_AU.UTF-8 && \
+    export LANG=en_AU.UTF-8 && \
+    locale-gen en_AU.UTF-8 && \
+    apt-get install -y software-properties-common \
+        python-software-properties \
+        build-essential && \
+    add-apt-repository -y ppa:ondrej/php
+
+# Needed for add-apt-repository to work due to UTF-8
+RUN locale-gen en_AU.UTF-8
+ENV LANG C.UTF-8
+
+RUN apt-get update && \
     apt-get install -y --force-yes supervisor \ 
     nginx \
-    php7.0 \
-    php7.0-cli \
-    php7.0-fpm \
-    php7.0-gd \
-    php7.0-json \
-    php7.0-zip \
-    wget
+    php7.1-fpm \
+    php7.1-common \
+    php7.1-gd \
+    php7.1-json \
+    php7.1-zip \
+    php7.1-curl \
+    php7.1-xml \
+    php7.1-intl \
+    wget \
+    curl \
+    zip \
+    unzip
 
-RUN service php7.0-fpm stop && \
+RUN service php7.1-fpm stop && \
     service nginx stop && \
     service supervisor stop
 
 ADD conf/supervisord.conf /etc/supervisord.conf
 ADD conf/nginx/sites-enabled/default /etc/nginx/sites-enabled/default
-ADD conf/www.conf /etc/php/7.0/fpm/pool.d/www.conf
+ADD conf/www.conf /etc/php/7.1/fpm/pool.d/www.conf
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
