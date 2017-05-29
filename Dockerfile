@@ -29,6 +29,7 @@ RUN apt-get update && \
     php7.1-curl \
     php7.1-xml \
     php7.1-intl \
+    php7.1-mbstring \
     wget \
     curl \
     zip \
