@@ -1,4 +1,4 @@
-FROM ubuntu:16.10
+FROM ubuntu:16.04
 
 MAINTAINER Greg Beaven <greg@studionone.com.au>
 
