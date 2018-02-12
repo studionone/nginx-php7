@@ -1,23 +1,8 @@
 FROM ubuntu:16.04
 
-MAINTAINER Greg Beaven <greg@studionone.com.au>
+MAINTAINER Studio None <developers@studionone.com.au>
 
-# Install PHP7
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y language-pack-en-base && \
-    export LC_ALL=en_AU.UTF-8 && \
-    export LANG=en_AU.UTF-8 && \
-    locale-gen en_AU.UTF-8 && \
-    apt-get install -y software-properties-common \
-        python-software-properties \
-        build-essential && \
-    add-apt-repository -y ppa:ondrej/php
-
-# Needed for add-apt-repository to work due to UTF-8
-RUN locale-gen en_AU.UTF-8
-ENV LANG C.UTF-8
-
+# Install nginx, supervisor and PHP
 RUN apt-get update && \
     apt-get install -y --force-yes supervisor \ 
     nginx \
