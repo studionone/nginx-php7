@@ -1,4 +1,4 @@
-FROM ubuntu:17.10
+FROM ubuntu:16.04
 
 MAINTAINER Studio None <developers@studionone.com.au>
 
