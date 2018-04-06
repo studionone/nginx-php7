@@ -4,10 +4,10 @@ MAINTAINER Studio None <developers@studionone.com.au>
 
 # Install nginx, supervisor and PHP
 RUN apt-get update && \
-    apt-get install -y language-pack-en-base software-properties-common python-software-properties
+    apt-get install -y software-properties-common
 RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 RUN apt-get update && \
-    apt-get install -y --force-yes supervisor \
+    apt-get install -y supervisor \
     nginx \
     php7.1-fpm \
     php7.1-common \
