@@ -27,9 +27,9 @@ RUN service php7.1-fpm stop && \
     service nginx stop && \
     service supervisor stop
 
-ADD conf/supervisord.conf /etc/supervisord.conf
-ADD conf/nginx/sites-enabled/default /etc/nginx/sites-enabled/default
-ADD conf/www.conf /etc/php/7.1/fpm/pool.d/www.conf
+COPY conf/supervisord.conf /etc/supervisord.conf
+COPY conf/nginx/sites-enabled/default /etc/nginx/sites-enabled/default
+COPY conf/www.conf /etc/php/7.1/fpm/pool.d/www.conf
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
@@ -44,7 +44,7 @@ RUN sed -i 's/user www-data/user root root/' /etc/nginx/nginx.conf
 # Install Composer
 RUN wget -O /tmp/composer.phar https://getcomposer.org/composer.phar && cp /tmp/composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
-#add default page for testing nginx
+# Add default page for testing nginx
 ADD var/www /var/www
 
 EXPOSE 80
