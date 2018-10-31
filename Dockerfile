@@ -1,10 +1,10 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 MAINTAINER Studio None <developers@studionone.com.au>
 
 # Install nginx, supervisor and PHP
 RUN apt-get update && \
-    apt-get install -y software-properties-common
+    apt-get install -y software-properties-common ppa-purge
 RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 RUN apt-get update && \
     apt-get install -y supervisor \
